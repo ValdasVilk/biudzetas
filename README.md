@@ -1,0 +1,2 @@
+# biudzetas
+Paprasta biudžeto programa
