@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import simpledialog, messagebox
-import pickle
+
 
 
 class Irasas:
@@ -36,16 +36,8 @@ class Biudzetas:
             ataskaita += f"{irasas.tipas}: {irasas.suma}\n"
         return ataskaita
 
-    def issaugoti(self):
-        with open("biudzetas.pkl", 'wb') as f:
-            pickle.dump(self.parodyti_ataskaita(), f)
 
-    def uzkrauti(self):
-        try:
-            with open("biudzetas.pkl", 'rb') as f:
-                return pickle.load(f)
-        except FileNotFoundError:
-            return Biudzetas(0)
+
 
 
 class BiudzetasGUI:
@@ -71,13 +63,9 @@ class BiudzetasGUI:
         self.button5 = tk.Button(master, text="Išeiti", command=master.quit)
         self.button5.pack(fill=tk.BOTH, expand=True)
 
-        self.button5 = tk.Button(master, text="Išsaugoti biudžetą", command=self.issaugoti_biudzeta)
-        self.button5.pack(fill=tk.BOTH, expand=True)
 
-        self.button6 = tk.Button(master, text="Užkrauti biudžetą", command=self.uzkrauti_biudzeta)
-        self.button6.pack(fill=tk.BOTH, expand=True)
 
-        self.biudzetas = Biudzetas(0).uzkrauti()
+        self.biudzetas = Biudzetas(0)
 
     def ivesti_pajamas(self):
         pajamos = float(tk.simpledialog.askstring("Įvesti pajamas", "Įveskite pajamų sumą:"))
@@ -94,13 +82,7 @@ class BiudzetasGUI:
         ataskaita =self.biudzetas.parodyti_ataskaita()
         tk.messagebox.showinfo("Ataskaita", f"{ataskaita}\n")
 
-    def issaugoti_biudzeta(self):
-        self.biudzetas.issaugoti()
-        tk.messagebox.showinfo("Biudzetas issaugotas")
 
-    def uzkrauti_biudzeta(self):
-        biudzetas = self.biudzetas.uzkrauti()
-        tk.messagebox.showinfo("Biudzeto istorija:", f"{biudzetas}\n")
 
 
 
